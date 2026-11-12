@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480" role="img" aria-labelledby="title">
+  <title id="title">Breathing difficulty illustration</title>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#07162b"/><stop offset="1" stop-color="#183b50"/></linearGradient>
+    <linearGradient id="lung" x2=".8" y2="1"><stop stop-color="#ffb6c4"/><stop offset=".48" stop-color="#f45d83"/><stop offset="1" stop-color="#8c397d"/></linearGradient>
+    <linearGradient id="wind" x2="1"><stop stop-color="#7df7ff"/><stop offset="1" stop-color="#448dff"/></linearGradient>
+    <filter id="shadow" x="-.4" y="-.3" width="1.8" height="1.8"><feDropShadow dx="0" dy="15" stdDeviation="12" flood-color="#000" flood-opacity=".62"/></filter>
+  </defs>
+  <rect width="720" height="480" rx="38" fill="url(#bg)"/><circle cx="360" cy="225" r="178" fill="#ff5f9a" opacity=".1"/>
+  <g filter="url(#shadow)"><path d="M350 119v88m20-88v88" stroke="#d5faff" stroke-width="14" stroke-linecap="round"/><path d="M352 195c-31-42-67-49-91-28-29 25-41 100-31 147 8 38 45 52 82 32 29-16 38-63 40-105z" fill="url(#lung)" stroke="#ffd1df" stroke-width="8"/><path d="M368 195c31-42 67-49 91-28 29 25 41 100 31 147-8 38-45 52-82 32-29-16-38-63-40-105z" fill="url(#lung)" stroke="#ffd1df" stroke-width="8"/><path d="M360 204v114m-3-82-47 37m53-37 47 37" fill="none" stroke="#fff0f4" stroke-width="10" stroke-linecap="round"/></g>
+  <path d="M133 174h63m-63 0-21-19m21 19-21 19m433 93h63m-63 0-21-19m21 19-21 19" fill="none" stroke="url(#wind)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><text x="360" y="447" text-anchor="middle" fill="#f3f8ff" font-family="Arial,sans-serif" font-size="27" font-weight="700" letter-spacing="2">BREATHING</text>
+</svg>

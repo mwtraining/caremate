@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480" role="img" aria-labelledby="title">
+  <title id="title">Fever illustration</title>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#07182a"/><stop offset="1" stop-color="#3c263d"/></linearGradient>
+    <linearGradient id="glass" x2="1"><stop stop-color="#d9fbff" stop-opacity=".85"/><stop offset=".5" stop-color="#75ddf7" stop-opacity=".25"/><stop offset="1" stop-color="#fff" stop-opacity=".7"/></linearGradient>
+    <linearGradient id="heat" x2="0" y2="1"><stop stop-color="#fff474"/><stop offset=".5" stop-color="#ff9b37"/><stop offset="1" stop-color="#f44367"/></linearGradient>
+    <filter id="shadow" x="-.5" y="-.3" width="2" height="1.8"><feDropShadow dx="0" dy="15" stdDeviation="12" flood-color="#000" flood-opacity=".65"/></filter>
+  </defs>
+  <rect width="720" height="480" rx="38" fill="url(#bg)"/><circle cx="360" cy="217" r="170" fill="#ff615c" opacity=".1"/>
+  <g filter="url(#shadow)"><path d="M330 113a48 48 0 0 1 96 0v180a77 77 0 1 1-96 0z" fill="url(#glass)" stroke="#e9fcff" stroke-width="10"/><path d="M359 143a19 19 0 0 1 38 0v173a47 47 0 1 1-38 0z" fill="url(#heat)"/><circle cx="378" cy="349" r="30" fill="#ff5c51"/><path d="M425 163h40m-40 42h29m-29 42h40m-40 42h29" stroke="#efffff" stroke-width="8" stroke-linecap="round"/><path d="M190 188c-20-24 19-38 0-63m47 73c-20-24 19-38 0-63m-50 183c-20-24 19-38 0-63" fill="none" stroke="#ffb044" stroke-width="9" stroke-linecap="round"/></g>
+  <text x="360" y="447" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="28" font-weight="700" letter-spacing="3">FEVER</text>
+</svg>

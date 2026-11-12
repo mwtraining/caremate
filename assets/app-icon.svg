@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="AI Care+ icon">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1d4ed8"/>
+      <stop offset="55%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f43f5e"/>
+      <stop offset="100%" stop-color="#fb7185"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="68" fill="#eef6ff"/>
+  <path d="M256 42L392 92v132c0 101-70 195-136 242C190 419 120 325 120 224V92l136-50zm0 52l-100 36v94c0 73 49 140 100 178 51-38 100-105 100-178v-94L256 94z" fill="url(#g1)"/>
+  <path d="M256 165c-23-38-84-38-109 5-29 50 8 108 109 167 101-59 138-117 109-167-25-43-86-43-109-5zm-1 39c17-23 41-30 59-10 14 14 12 33-2 48-13 14-32 27-57 40-25-13-44-26-57-40-14-15-16-34-2-48 18-20 42-13 59 10z" fill="url(#g2)" opacity="0.92"/>
+  <g fill="#e0f2fe" stroke="#e0f2fe" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="156" cy="170" r="18"/>
+    <circle cx="356" cy="170" r="18"/>
+    <circle cx="256" cy="116" r="14"/>
+    <path d="M156 170l100-54 100 54" fill="none"/>
+  </g>
+  <g fill="#ffffff" opacity="0.9">
+    <circle cx="126" cy="336" r="12"/>
+    <circle cx="386" cy="336" r="12"/>
+  </g>
+</svg>

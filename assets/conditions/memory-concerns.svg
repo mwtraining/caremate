@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480" role="img" aria-labelledby="title">
+  <title id="title">Memory concerns illustration</title>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#10152d"/><stop offset="1" stop-color="#24345b"/></linearGradient>
+    <linearGradient id="brain" x2=".8" y2="1"><stop stop-color="#ffe0cb"/><stop offset=".5" stop-color="#fa8cb0"/><stop offset="1" stop-color="#a454bc"/></linearGradient>
+    <linearGradient id="tile" x2=".8" y2="1"><stop stop-color="#9ffff1"/><stop offset=".5" stop-color="#48c7e9"/><stop offset="1" stop-color="#5167d8"/></linearGradient>
+    <filter id="shadow" x="-.4" y="-.3" width="1.8" height="1.8"><feDropShadow dx="0" dy="17" stdDeviation="13" flood-color="#000" flood-opacity=".65"/></filter>
+  </defs>
+  <rect width="720" height="480" rx="38" fill="url(#bg)"/><circle cx="360" cy="219" r="176" fill="#9b7aff" opacity=".1"/>
+  <g filter="url(#shadow)"><path d="M351 134c-8-41-61-52-84-19-36-9-67 20-56 55-31 24-22 69 12 80-7 38 28 64 62 47 23 31 68 22 75-13V138z" fill="url(#brain)" stroke="#ffe1f0" stroke-width="8"/><path d="M369 134c8-41 61-52 84-19 36-9 67 20 56 55 31 24 22 69-12 80 7 38-28 64-62 47-23 31-68 22-75-13V138z" fill="url(#brain)" stroke="#ffe1f0" stroke-width="8"/><path d="M360 133v153m-63-107 35 23m91-23-35 23m-92 32 48 3m115-3-48 3m-75 49 24-28m54 28-24-28" fill="none" stroke="#8f477e" stroke-width="8" stroke-linecap="round"/><path d="m524 267 25 25-25 25-25-25z" fill="url(#tile)" stroke="#d5ffff" stroke-width="5"/><path d="m206 143 25 25-25 25-25-25z" fill="#ffe476" stroke="#fff6c1" stroke-width="5"/></g>
+  <text x="360" y="447" text-anchor="middle" fill="#f7f3ff" font-family="Arial,sans-serif" font-size="27" font-weight="700" letter-spacing="2">BRAIN HEALTH</text>
+</svg>

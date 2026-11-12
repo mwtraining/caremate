@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480" role="img" aria-labelledby="title">
+  <title id="title">Menopause wellness illustration</title>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#15132d"/><stop offset="1" stop-color="#432543"/></linearGradient>
+    <radialGradient id="sun"><stop stop-color="#fff6a6"/><stop offset=".62" stop-color="#ffb14d"/><stop offset="1" stop-color="#f15d83"/></radialGradient>
+    <linearGradient id="woman" x2=".8" y2="1"><stop stop-color="#ffe2c7"/><stop offset=".55" stop-color="#e6a184"/><stop offset="1" stop-color="#8e5288"/></linearGradient>
+    <filter id="shadow" x="-.4" y="-.3" width="1.8" height="1.8"><feDropShadow dx="0" dy="17" stdDeviation="13" flood-color="#000" flood-opacity=".65"/></filter>
+  </defs>
+  <rect width="720" height="480" rx="38" fill="url(#bg)"/><circle cx="524" cy="170" r="100" fill="url(#sun)" opacity=".94"/><g stroke="#ffcf67" stroke-width="8" stroke-linecap="round"><path d="M524 37v-24m0 338v-24M391 170h-24m338 0h-24m-224-94-17-17m239 239-17-17m0-205 17-17M408 409l17-17"/></g>
+  <g filter="url(#shadow)"><path d="M211 380c8-100 61-160 147-160s139 60 147 160l-7 23H218z" fill="url(#woman)" stroke="#ffe5d1" stroke-width="8"/><circle cx="358" cy="159" r="72" fill="url(#woman)" stroke="#ffe5d1" stroke-width="8"/><path d="M286 160c-4-86 49-119 106-98 36 13 52 41 42 79-32-4-60-29-72-54-16 32-39 52-76 73z" fill="#463153"/><path d="M324 184q12 8 24 0m26 0q12 8 24 0" fill="none" stroke="#723b60" stroke-width="7" stroke-linecap="round"/><path d="M330 210q28 19 56 0" fill="none" stroke="#a75472" stroke-width="7" stroke-linecap="round"/></g>
+  <text x="360" y="447" text-anchor="middle" fill="#fff7ef" font-family="Arial,sans-serif" font-size="28" font-weight="700" letter-spacing="3">MENOPAUSE</text>
+</svg>

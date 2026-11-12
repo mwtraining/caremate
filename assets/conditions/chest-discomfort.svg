@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480" role="img" aria-labelledby="title">
+  <title id="title">Chest discomfort illustration</title>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#10152e"/><stop offset="1" stop-color="#422340"/></linearGradient>
+    <linearGradient id="heart" x2=".8" y2="1"><stop stop-color="#ffb4a1"/><stop offset=".45" stop-color="#ff5575"/><stop offset="1" stop-color="#b92662"/></linearGradient>
+    <linearGradient id="torso" x2="1" y2="1"><stop stop-color="#ffe2c8"/><stop offset=".5" stop-color="#eea081"/><stop offset="1" stop-color="#a95c8c"/></linearGradient>
+    <filter id="shadow" x="-.4" y="-.3" width="1.8" height="1.8"><feDropShadow dx="0" dy="17" stdDeviation="13" flood-color="#000" flood-opacity=".65"/></filter>
+  </defs>
+  <rect width="720" height="480" rx="38" fill="url(#bg)"/><circle cx="360" cy="231" r="182" fill="#ff4f77" opacity=".12"/>
+  <g filter="url(#shadow)"><path d="M274 116c0 34 29 56 86 56s86-22 86-56l69 36 52 174-92 32-19-65v96H264v-96l-19 65-92-32 52-174z" fill="url(#torso)" stroke="#ffe7d7" stroke-width="8"/><path d="M360 266c-42-34-73-58-73-91 0-30 39-41 73-9 34-32 73-21 73 9 0 33-31 57-73 91z" fill="url(#heart)" stroke="#ffe0db" stroke-width="7"/><path d="M290 226h40l15-26 25 54 20-37 14 9h30" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="m506 109 10 27 27 10-27 10-10 27-10-27-27-10 27-10z" fill="#fff17a" stroke="#ffbc41" stroke-width="5"/></g>
+  <text x="360" y="447" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="28" font-weight="700" letter-spacing="2">CHEST CARE</text>
+</svg>

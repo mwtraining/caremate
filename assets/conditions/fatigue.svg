@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480" role="img" aria-labelledby="title">
+  <title id="title">Fatigue illustration</title>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#11132a"/><stop offset="1" stop-color="#263858"/></linearGradient>
+    <linearGradient id="moon" x2=".8" y2="1"><stop stop-color="#fff3a6"/><stop offset="1" stop-color="#f79d56"/></linearGradient>
+    <linearGradient id="pillow" x2=".8" y2="1"><stop stop-color="#8c9eff"/><stop offset="1" stop-color="#4b55b9"/></linearGradient>
+    <filter id="shadow" x="-.4" y="-.4" width="1.8" height="1.8"><feDropShadow dx="0" dy="16" stdDeviation="12" flood-color="#000" flood-opacity=".65"/></filter>
+  </defs>
+  <rect width="720" height="480" rx="38" fill="url(#bg)"/><circle cx="542" cy="111" r="51" fill="url(#moon)"/><circle cx="562" cy="93" r="49" fill="#1b2440"/><g fill="#fff"><circle cx="157" cy="107" r="4"/><circle cx="252" cy="77" r="5"/><circle cx="464" cy="150" r="4"/><circle cx="588" cy="206" r="4"/></g>
+  <g filter="url(#shadow)"><path d="M146 335c50-41 109-60 181-60h177c46 0 76 30 76 68v48H146z" fill="url(#pillow)" stroke="#c5caff" stroke-width="8"/><path d="M201 266c5-70 56-110 126-104 55 5 88 44 87 101l-19 65H224z" fill="#f5c59f" stroke="#ffe3c9" stroke-width="7"/><path d="M208 246c11-70 61-102 122-82 32 10 52 34 60 67-33-14-55-39-64-56-25 34-65 57-118 71z" fill="#343658"/><path d="M261 272q15 9 31 0m28 0q15 9 31 0" fill="none" stroke="#753f65" stroke-width="7" stroke-linecap="round"/><path d="M251 314c19 21 51 27 79 15" fill="none" stroke="#d88e87" stroke-width="8" stroke-linecap="round"/><path d="m457 164 30-28 30 28-30 28z" fill="#ffe36e" stroke="#fff4ba" stroke-width="5"/><path d="m491 211 21-20 21 20-21 20z" fill="#7cf2ff" stroke="#c8ffff" stroke-width="5"/></g>
+  <text x="360" y="447" text-anchor="middle" fill="#f3f8ff" font-family="Arial,sans-serif" font-size="28" font-weight="700" letter-spacing="3">FATIGUE</text>
+</svg>

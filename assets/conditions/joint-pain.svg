@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480" role="img" aria-labelledby="title">
+  <title id="title">Joint pain illustration</title>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#08172a"/><stop offset="1" stop-color="#163b50"/></linearGradient>
+    <linearGradient id="bone" x2=".8" y2="1"><stop stop-color="#fff3cf"/><stop offset=".5" stop-color="#e8c9a1"/><stop offset="1" stop-color="#a57f89"/></linearGradient>
+    <linearGradient id="joint" x2=".8" y2="1"><stop stop-color="#fff187"/><stop offset=".5" stop-color="#ff9e43"/><stop offset="1" stop-color="#ec4e75"/></linearGradient>
+    <filter id="shadow" x="-.4" y="-.3" width="1.8" height="1.8"><feDropShadow dx="0" dy="16" stdDeviation="12" flood-color="#000" flood-opacity=".65"/></filter>
+  </defs>
+  <rect width="720" height="480" rx="38" fill="url(#bg)"/><circle cx="361" cy="232" r="172" fill="#ffab51" opacity=".1"/>
+  <g filter="url(#shadow)" transform="rotate(-34 360 230)"><path d="M332 91c-36-27-81 9-57 48l72 86-72 86c-24 39 21 75 57 48l88-106a43 43 0 0 0 0-56z" fill="url(#bone)" stroke="#fff1d2" stroke-width="9"/><path d="M388 91c36-27 81 9 57 48l-72 86 72 86c24 39-21 75-57 48l-88-106a43 43 0 0 1 0-56z" fill="url(#bone)" stroke="#fff1d2" stroke-width="9"/><circle cx="360" cy="225" r="47" fill="url(#joint)" stroke="#fff2a1" stroke-width="8"/></g>
+  <path d="m516 127 11 28 28 11-28 11-11 28-11-28-28-11 28-11z" fill="#fff27a" stroke="#ffe9ad" stroke-width="5"/><path d="m205 309 8 21 21 8-21 8-8 21-8-21-21-8 21-8z" fill="#66eeff" stroke="#d5ffff" stroke-width="5"/><text x="360" y="447" text-anchor="middle" fill="#f3faff" font-family="Arial,sans-serif" font-size="28" font-weight="700" letter-spacing="3">JOINT CARE</text>
+</svg>

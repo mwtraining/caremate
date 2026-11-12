@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480" role="img" aria-labelledby="title">
+  <title id="title">Anemia illustration</title>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#10162d"/><stop offset="1" stop-color="#49233d"/></linearGradient>
+    <linearGradient id="drop" x2=".8" y2="1"><stop stop-color="#ffb4a5"/><stop offset=".4" stop-color="#fa5369"/><stop offset="1" stop-color="#9d174d"/></linearGradient>
+    <linearGradient id="leaf" x2=".8" y2="1"><stop stop-color="#c5ff8b"/><stop offset=".5" stop-color="#41ce83"/><stop offset="1" stop-color="#14745c"/></linearGradient>
+    <filter id="shadow" x="-.4" y="-.3" width="1.8" height="1.8"><feDropShadow dx="0" dy="16" stdDeviation="12" flood-color="#000" flood-opacity=".65"/></filter>
+  </defs>
+  <rect width="720" height="480" rx="38" fill="url(#bg)"/><circle cx="360" cy="220" r="175" fill="#ff5973" opacity=".1"/>
+  <g filter="url(#shadow)"><path d="M360 105c-31 57-105 134-105 198a105 105 0 0 0 210 0c0-64-74-141-105-198z" fill="url(#drop)" stroke="#ffd8d2" stroke-width="9"/><path d="M300 291c9-41 32-66 60-85" fill="none" stroke="#fff1eb" stroke-opacity=".7" stroke-width="13" stroke-linecap="round"/><path d="M217 310c-13-67-76-96-119-85 7 57 56 98 119 85z" fill="url(#leaf)" stroke="#dbffbe" stroke-width="7"/><path d="M205 307 132 242" stroke="#eaffcf" stroke-width="7"/><path d="M502 326c13-67 76-96 119-85-7 57-56 98-119 85z" fill="url(#leaf)" stroke="#dbffbe" stroke-width="7"/><path d="m514 323 73-65" stroke="#eaffcf" stroke-width="7"/></g>
+  <text x="360" y="447" text-anchor="middle" fill="#fff3f4" font-family="Arial,sans-serif" font-size="28" font-weight="700" letter-spacing="3">IRON &amp; BLOOD</text>
+</svg>

@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta
+      name="description"
+      content="AI Care+ is a lightweight AI-powered safety and wellness assistant for women and elderly users."
+    />
+    <title>CareMate | Smart Safety & Wellness Assistant</title>
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="icon" href="./assets/app-icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./assets/app-icon-192.png" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body data-theme="dark" data-contrast="normal" data-font-scale="1">
+    <button id="appModeToggle" class="floating-app-button" type="button">CareMate App</button>
+
+    <div id="splashScreen" class="splash-screen" aria-live="polite">
+      <div class="splash-logo-wrap">
+        <img src="./assets/app-icon.svg" alt="AI Care+ logo" class="splash-logo" />
+      </div>
+      <h1>CareMate</h1>
+      <p class="subtitle">Smart Safety & Wellness Assistant</p>
+      <p class="tagline">Technology that cares.</p>
+    </div>
+
+    <main id="loginScreen" class="login-screen hidden" aria-labelledby="loginTitle">
+      <section class="login-panel">
+        <img src="./assets/app-icon.svg" alt="" class="login-logo" />
+        <p class="eyebrow accent">CareMate</p>
+        <h1 id="loginTitle">Welcome back</h1>
+        <p class="login-copy">Sign in with your email address or mobile number.</p>
+        <form id="loginForm" class="stack-form" novalidate>
+          <label for="loginIdentifier">
+            Email address or mobile number
+            <input
+              id="loginIdentifier"
+              name="identifier"
+              type="text"
+              inputmode="email"
+              autocomplete="username"
+              placeholder="name@example.com or +91 98765 43210"
+              required
+            />
+          </label>
+          <p id="loginError" class="login-error" aria-live="polite"></p>
+          <button type="submit" class="primary-button">Continue</button>
+        </form>
+        <p class="login-note">Local demo sign-in only. Your identifier stays on this device; no account verification is performed.</p>
+      </section>
+    </main>
+
+    <div id="appShell" class="app-shell hidden">
+      <aside class="sidebar" aria-label="Main navigation">
+        <div class="brand-bar">
+          <img src="./assets/app-icon.svg" alt="CareMate icon" class="brand-icon" />
+          <div>
+            <h2>CareMate</h2>
+            <small>Smart Safety & Wellness Assistant</small>
+          </div>
+        </div>
+
+        <nav class="nav-list">
+          <button class="nav-item" type="button" data-action="profile-open" aria-label="Open Profile">
+            <span>👤</span> <span>Profile</span>
+          </button>
+          <button class="nav-item active" data-view="home" aria-label="Open Home">
+            <span>🏠</span> <span>Home</span>
+          </button>
+          <button class="nav-item" data-view="women" aria-label="Open Women Safety">
+            <span>👩</span> <span>Women Safety</span>
+          </button>
+          <button class="nav-item" data-view="elderly" aria-label="Open Elderly Care">
+            <span>👴</span> <span>Elderly Care</span>
+          </button>
+          <button class="nav-item" data-view="contacts" aria-label="Open Contacts">
+            <span>👥</span> <span>Contacts</span>
+          </button>
+          <button class="nav-item" data-view="assistant" aria-label="Open AI Assistant">
+            <span>🤖</span> <span>AI Assistant</span>
+          </button>
+          <button class="nav-item" data-view="settings" aria-label="Open Settings">
+            <span>⚙️</span> <span>Settings</span>
+          </button>
+        </nav>
+      </aside>
+
+      <div class="main-panel">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="icon-button mobile-only" id="menuToggle" aria-label="Toggle menu">☰</button>
+            <div class="app-mode-brand" aria-label="CareMate">
+              <img src="./assets/app-icon.svg" alt="" />
+              <strong>CareMate</strong>
+            </div>
+            <div id="userModeHeading" class="hidden">
+              <p class="eyebrow">How can we help you today?</p>
+              <h3 id="userModeLabel">Personal Care</h3>
+            </div>
+          </div>
+
+          <div class="topbar-actions">
+            <button class="icon-button app-mode-profile" type="button" data-action="profile-open" aria-label="Open Profile">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 2c-4.1 0-7.5 2.4-7.5 5.3V22h15v-2.7c0-2.9-3.4-5.3-7.5-5.3Z" />
+              </svg>
+            </button>
+            <button class="icon-button" id="voiceButton" aria-label="Use voice assistance">🎤</button>
+          </div>
+        </header>
+
+        <main class="content-area">
+          <section id="view-home" class="app-view active" aria-label="Home dashboard">
+            <div class="hero-card">
+              <div class="hero-copy">
+                <p class="eyebrow accent">CareMate</p>
+                <h1 id="homeTitle">Home</h1>
+                <p id="homeGreeting">Add your name, age, and gender in Profile.</p>
+              </div>
+              <div class="hero-sos-group">
+                <button class="sos-hero" data-action="sos-call-primary" aria-label="Call primary emergency contact">🆘 SOS</button>
+                <button class="feature-button browser-home-voice" type="button" data-action="voice-quick">
+                  <span>🎙️</span>
+                  <strong>Voice Assistance</strong>
+                </button>
+                <p id="homeEmergencyContact">Emergency contact: Not set</p>
+              </div>
+            </div>
+
+            <form id="homeWellnessForm" class="home-wellness-form">
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <span class="stat-icon">❤️</span>
+                  <div>
+                    <p>Wellness</p>
+                    <strong id="homeWellnessStatus">Good</strong>
+                  </div>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-icon">💧</span>
+                  <div>
+                    <label for="homeWaterInput">Water</label>
+                    <select id="homeWaterInput" class="home-wellness-select" name="water" aria-label="Water today in cups" disabled></select>
+                  </div>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-icon">😴</span>
+                  <div>
+                    <label for="homeSleepInput">Sleep</label>
+                    <select id="homeSleepInput" class="home-wellness-select" name="sleep" aria-label="Sleep duration in hours" disabled></select>
+                  </div>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-icon">💊</span>
+                  <div>
+                    <label for="homeMedicineInput">Medicine</label>
+                    <select id="homeMedicineInput" class="home-wellness-select" name="medicine" aria-label="Medicine status" disabled>
+                      <option value="na" selected>NA</option>
+                      <option value="attention">Needs attention</option>
+                      <option value="on-track">On track</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <button class="secondary-button home-wellness-edit" id="editHomeWellness" type="button">Edit</button>
+              <button class="primary-button home-wellness-save" type="submit" hidden>Save</button>
+            </form>
+
+            <div class="quick-actions-grid">
+              <button class="action-card" data-view="women">
+                <span>👩</span>
+                <strong>Women Safety</strong>
+                <small>Quick safety tools</small>
+              </button>
+              <button class="action-card" data-view="elderly">
+                <span>👴</span>
+                <strong>Elderly Care</strong>
+                <small>Health reminders</small>
+              </button>
+              <button class="action-card" data-view="assistant">
+                <span>🤖</span>
+                <strong>AI Assistant</strong>
+                <small>Guidance and tips</small>
+              </button>
+            </div>
+
+            <div class="card-grid two-col">
+              <div class="info-card">
+                <p id="homeAiDecision">Your wellness indicators look stable. Drink water and keep your safety plan ready.</p>
+              </div>
+
+              <div class="info-card">
+                <div class="card-head">
+                  <h3>Safety Reminder</h3>
+                  <span>🛡️</span>
+                </div>
+                <p>Keep your phone charged, know your emergency contacts, and move to a safe public place when needed.</p>
+              </div>
+            </div>
+          </section>
+
+          <section id="view-women" class="app-view" aria-label="Women Safety">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow accent">Women Safety</p>
+                <h2>Safety Dashboard</h2>
+              </div>
+            </div>
+
+            <div class="feature-grid women-grid">
+              <button class="feature-button" data-action="show-location">
+                <span>📍</span>
+                <strong>My Location</strong>
+              </button>
+              <button class="feature-button" data-action="open-contacts">
+                <span>👥</span>
+                <strong>Emergency Contacts</strong>
+              </button>
+            </div>
+
+            <div class="health-profile-grid" aria-label="Health information">
+              <article class="info-card health-profile-card">
+                <h3>Blood Group</h3>
+                <p id="womenBloodGroup">Not set</p>
+              </article>
+              <article class="info-card health-profile-card">
+                <h3>Pre-existing Diseases</h3>
+                <div class="disease-editor" data-disease-mode="women">
+                  <details class="disease-picker">
+                    <summary>Select diseases</summary>
+                    <div class="disease-options" data-disease-options="women"></div>
+                  </details>
+                  <div class="selected-diseases">
+                    <h4>Selected diseases</h4>
+                    <div class="selected-disease-list" data-selected-diseases="women"></div>
+                    <label class="other-disease-input">
+                      Add a disease not listed
+                      <input type="text" data-other-disease-input="women" placeholder="Enter disease" />
+                    </label>
+                    <button class="secondary-button" type="button" data-add-disease="women">Add disease</button>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+          </section>
+
+          <section id="view-elderly" class="app-view" aria-label="Elderly Care">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow accent">Elderly Care</p>
+                <h2>Daily Support Dashboard</h2>
+              </div>
+            </div>
+
+            <div class="feature-grid elderly-grid">
+              <button class="feature-button" data-action="open-medicine"><span>💊</span><strong>Medicine Reminder</strong></button>
+              <button class="feature-button" data-action="water-reminder"><span>💧</span><strong>Water Reminder</strong></button>
+            </div>
+
+            <div class="health-profile-grid" aria-label="Health information">
+              <article class="info-card health-profile-card">
+                <h3>Blood Group</h3>
+                <p id="elderlyBloodGroup">Not set</p>
+              </article>
+              <article class="info-card health-profile-card">
+                <h3>Pre-existing Diseases</h3>
+                <div class="disease-editor" data-disease-mode="elderly">
+                  <details class="disease-picker">
+                    <summary>Select diseases</summary>
+                    <div class="disease-options" data-disease-options="elderly"></div>
+                  </details>
+                  <div class="selected-diseases">
+                    <h4>Selected diseases</h4>
+                    <div class="selected-disease-list" data-selected-diseases="elderly"></div>
+                    <label class="other-disease-input">
+                      Add a disease not listed
+                      <input type="text" data-other-disease-input="elderly" placeholder="Enter disease" />
+                    </label>
+                    <button class="secondary-button" type="button" data-add-disease="elderly">Add disease</button>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="card-grid two-col">
+              <div class="info-card">
+                <div class="card-head">
+                  <h3>Medicine Reminder</h3>
+                  <span>💊</span>
+                </div>
+                <form id="medicineForm" class="stack-form">
+                  <label>
+                    Medicine Name
+                    <input type="text" id="medicineName" placeholder="Vitamin D" required />
+                  </label>
+                  <label>
+                    Time
+                    <input type="time" id="medicineTime" value="08:00" step="60" required />
+                  </label>
+                  <label>
+                    Repeat
+                    <select id="medicineFrequency" required>
+                      <option value="weekly" selected>Selected days</option>
+                      <option value="monthly">Monthly</option>
+                    </select>
+                  </label>
+                  <fieldset id="medicineDaysField" class="medicine-days-field">
+                    <legend>Days of the week</legend>
+                    <div class="medicine-day-options">
+                      <label><input type="checkbox" name="medicineDays" value="0" /> Sunday</label>
+                      <label><input type="checkbox" name="medicineDays" value="1" /> Monday</label>
+                      <label><input type="checkbox" name="medicineDays" value="2" /> Tuesday</label>
+                      <label><input type="checkbox" name="medicineDays" value="3" /> Wednesday</label>
+                      <label><input type="checkbox" name="medicineDays" value="4" /> Thursday</label>
+                      <label><input type="checkbox" name="medicineDays" value="5" /> Friday</label>
+                      <label><input type="checkbox" name="medicineDays" value="6" /> Saturday</label>
+                    </div>
+                  </fieldset>
+                  <label id="medicineMonthDayField" hidden>
+                    Day of month
+                    <select id="medicineMonthDay"></select>
+                  </label>
+                  <button type="submit" class="primary-button">Save Reminder</button>
+                </form>
+                <p class="reminder-note">Select one or more days of the week, or choose a day each month. CareMate announces the medicine and time, then beeps five times while open. Keep device volume on. Browser notifications also need permission.</p>
+                <div id="elderlyMedicineList" class="contact-list" style="margin-top: 1rem;"></div>
+              </div>
+
+              <div class="info-card">
+                <div class="card-head">
+                  <h3>Water Reminder</h3>
+                  <span>💧</span>
+                </div>
+                <div id="waterProgress"></div>
+              </div>
+            </div>
+          </section>
+          <section id="view-contacts" class="app-view" aria-label="Emergency Contacts">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow accent">Contacts</p>
+                <h2>Emergency Contact</h2>
+              </div>
+            </div>
+
+            <div class="info-card contact-summary-card">
+              <div class="card-head">
+                <h3>Current Emergency Contact</h3>
+                <span>👥</span>
+              </div>
+              <div id="contactsList" class="contact-list"></div>
+            </div>
+          </section>
+
+          <section id="view-assistant" class="app-view" aria-label="AI Assistant">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow accent">AI Assistant</p>
+                <h2>Health Guidance</h2>
+              </div>
+            </div>
+
+            <div class="info-card health-guidance-card">
+              <div class="card-head plain-card-head">
+                <span class="card-label">Recommendation</span>
+                <span>🤖</span>
+              </div>
+              <label id="conditionPickerLabel">Select Health Condition</label>
+              <div id="conditionPicker" class="condition-picker">
+                <button id="conditionPickerTrigger" class="condition-picker-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="conditionPickerLabel conditionPickerValue" aria-controls="conditionPickerOptions">
+                  <span id="conditionPickerValue">-- Select Condition --</span>
+                  <span class="condition-picker-chevron" aria-hidden="true">⌄</span>
+                </button>
+                <div id="conditionPickerOptions" class="condition-picker-options" role="listbox" aria-labelledby="conditionPickerLabel" hidden>
+                  <div class="condition-picker-option" role="option" aria-selected="true" tabindex="0" data-condition="">-- Select Condition --</div>
+                  <div class="condition-picker-option" role="option" aria-selected="false" tabindex="-1" data-condition="Headache">Headache</div>
+                  <div class="condition-picker-option" role="option" aria-selected="false" tabindex="-1" data-condition="Dizziness">Dizziness</div>
+                  <div class="condition-picker-option" role="option" aria-selected="false" tabindex="-1" data-condition="Fatigue">Fatigue</div>
+                  <div class="condition-picker-option" role="option" aria-selected="false" tabindex="-1" data-condition="Fever">Fever</div>
+                  <div class="condition-picker-option" role="option" aria-selected="false" tabindex="-1" data-condition="Weakness">Weakness</div>
+                  <div class="condition-picker-option" role="option" aria-selected="false" tabindex="-1" data-condition="Breathing difficulty">Breathing Difficulty</div>
+                  <div class="condition-picker-option" role="option" aria-selected="false" tabindex="-1" data-condition="Chest discomfort">Chest Discomfort</div>
+                  <div class="condition-picker-option" role="option" aria-selected="false" tabindex="-1" data-condition="Menstrual Pain">Menstrual Pain</div>
+                  <div class="condition-picker-option" role="option" aria-selected="false" tabindex="-1" data-condition="Pregnancy Care">Pregnancy Care</div>
+                  <div class="condition-picker-option" role="option" aria-selected="false" tabindex="-1" data-condition="Menopause">Menopause</div>
+                  <div class="condition-picker-option" role="option" aria-selected="false" tabindex="-1" data-condition="Anemia">Anemia</div>
+                  <div class="condition-picker-option" role="option" aria-selected="false" tabindex="-1" data-condition="Joint Pain">Joint Pain</div>
+                  <div class="condition-picker-option" role="option" aria-selected="false" tabindex="-1" data-condition="Diabetes">Diabetes</div>
+                  <div class="condition-picker-option" role="option" aria-selected="false" tabindex="-1" data-condition="Memory Concerns">Memory Concerns</div>
+                  <div class="condition-picker-option" role="option" aria-selected="false" tabindex="-1" data-condition="Blood Pressure">Blood Pressure</div>
+                </div>
+              </div>
+              <div class="condition-guidance">
+                <img id="conditionIllustration" class="condition-illustration" alt="" hidden />
+                <div id="aiRecommendation" class="result-box dark-box">
+                  Select a condition to view recommendation.
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="view-settings" class="app-view" aria-label="Settings">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow accent">Settings</p>
+                <h2>Preferences & Safety</h2>
+              </div>
+            </div>
+
+            <div class="settings-grid">
+              <div class="info-card">
+                <h3>Profile Mode</h3>
+                <div class="button-stack compact">
+                  <button class="secondary-button" data-profile-mode="women">👩 Women Safety</button>
+                  <button class="secondary-button" data-profile-mode="elderly">👴 Elderly Care</button>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <h3>Text & Accessibility</h3>
+                <div class="button-stack compact">
+                  <button class="secondary-button" data-font-action="increase">A+ Increase</button>
+                  <button class="secondary-button" data-font-action="decrease">A- Decrease</button>
+                  <button class="secondary-button" data-contrast="toggle">High Contrast</button>
+                  <button class="secondary-button" data-accessibility="buttons">Large Buttons</button>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <h3>Demo View</h3>
+                <div class="button-stack compact">
+                  <button class="secondary-button" data-launch-mode="app">📱 App View</button>
+                  <button class="secondary-button" data-launch-mode="browser">🖥️ Browser View</button>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <h3>Voice & Data</h3>
+                <div class="button-stack compact">
+                  <button class="secondary-button" data-voice-toggle="toggle">🎤 Voice Assistance</button>
+                  <button class="secondary-button danger" id="clearDataBtn">Clear My Data</button>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <h3>Account</h3>
+                <p>Signed in on this device as <strong id="signedInIdentifier"></strong>.</p>
+                <button class="secondary-button" id="signOutButton" type="button">Sign Out</button>
+              </div>
+
+              <div class="info-card full-span">
+                <h3>Privacy</h3>
+                <p>Data is stored locally on this device. No personal data is uploaded. Location is requested only when permission is granted. AI recommendations are educational and not a diagnosis.</p>
+              </div>
+            </div>
+          </section>
+
+          <section id="view-about" class="app-view" aria-label="About AI Care+"></section>
+
+          <section id="view-privacy" class="app-view" aria-label="Privacy Policy">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow accent">Ethics</p>
+                <h2>Privacy & Ethics</h2>
+              </div>
+            </div>
+
+            <div class="card-grid two-col">
+              <div class="info-card">
+                <h3>Privacy</h3>
+                <ul class="simple-list">
+                  <li>Data is stored locally on this device.</li>
+                  <li>No personal data is uploaded to a server.</li>
+                  <li>Location is accessed only with user permission.</li>
+                  <li>Emergency information should be shared carefully.</li>
+                </ul>
+              </div>
+
+              <div class="info-card">
+                <h3>Principles</h3>
+                <ul class="simple-list">
+                  <li>Privacy</li>
+                  <li>Fairness</li>
+                  <li>Transparency</li>
+                  <li>Human oversight</li>
+                  <li>Safety</li>
+                  <li>Limitations</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section id="view-sos" class="app-view" aria-label="Emergency SOS Panel">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow accent">Emergency</p>
+                <h2>SOS Activation</h2>
+              </div>
+            </div>
+
+            <div id="sosContainer" class="sos-panel"></div>
+          </section>
+        </main>
+      </div>
+      <nav class="bottom-nav" aria-label="Mobile navigation">
+        <button class="bottom-nav-item active" data-view="home">🏠<span>Home</span></button>
+        <button class="bottom-nav-item" data-view="elderly">❤️<span>Health</span></button>
+        <button class="bottom-nav-item" data-view="assistant">🤖<span>AI</span></button>
+        <button class="bottom-nav-item" data-view="settings">⚙️<span>More</span></button>
+      </nav>
+    </div>
+
+    <div id="modeModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modeModalTitle">
+      <div class="modal-card">
+        <h3 id="modeModalTitle">Who are you using AI Care+ for?</h3>
+        <div class="button-stack stacked">
+          <button class="secondary-button" data-profile-mode="women">👩 Women Safety</button>
+          <button class="secondary-button" data-profile-mode="elderly">👴 Elderly Care</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="confirmationModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="confirmationTitle">
+      <div class="modal-card compact-modal">
+        <h3 id="confirmationTitle">Are you sure you need emergency assistance?</h3>
+        <div class="button-stack compact">
+          <button class="secondary-button" data-confirm-action="cancel">CANCEL</button>
+          <button class="secondary-button danger" data-confirm-action="activate-sos">YES, ACTIVATE SOS</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="locationShareModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="locationShareTitle">
+      <div class="modal-card location-share-card">
+        <button class="location-share-close" type="button" data-location-share-action="close" aria-label="Close location sharing">×</button>
+        <p class="eyebrow accent">Location sharing</p>
+        <h3 id="locationShareTitle">Share your location</h3>
+        <p id="locationShareStatus" class="location-share-status" role="status" aria-live="polite"></p>
+        <a id="locationMapLink" class="location-map-link hidden" target="_blank" rel="noopener noreferrer">Open location in Maps</a>
+        <div class="location-share-options">
+          <button class="location-share-target" type="button" data-location-share-target="whatsapp">
+            <span class="location-share-icon whatsapp-icon" aria-hidden="true">☎</span>
+            <span>WhatsApp</span>
+          </button>
+          <button class="location-share-target" type="button" data-location-share-target="messenger">
+            <span class="location-share-icon messenger-icon" aria-hidden="true">⚡</span>
+            <span>Messenger</span>
+          </button>
+        </div>
+        <div class="location-share-actions">
+          <button class="secondary-button" type="button" data-location-share-action="refresh">Refresh Location</button>
+          <button class="secondary-button" type="button" data-location-share-action="close">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="profileModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
+      <div class="modal-card profile-modal-card">
+        <button class="location-share-close" type="button" data-profile-action="close" aria-label="Close profile">×</button>
+        <p class="eyebrow accent">Your details</p>
+        <h3 id="profileTitle">Profile</h3>
+        <form id="profileForm" class="stack-form">
+          <fieldset class="profile-mode-options">
+            <legend>Care mode</legend>
+            <div class="profile-mode-choice-list">
+              <label class="profile-mode-choice">
+                <input id="profileModeWomen" name="profileMode" type="checkbox" value="women" />
+                <span>Women Safety</span>
+              </label>
+              <label class="profile-mode-choice">
+                <input id="profileModeElderly" name="profileMode" type="checkbox" value="elderly" />
+                <span>Elder Care</span>
+              </label>
+            </div>
+          </fieldset>
+          <div class="profile-row profile-row-identity">
+            <label for="profileName">
+              Name
+              <input id="profileName" name="name" type="text" autocomplete="name" placeholder="Your name" required />
+            </label>
+            <label for="profileAge">
+              Age
+              <input id="profileAge" name="age" type="number" min="10" max="120" step="1" placeholder="Your age" required />
+            </label>
+            <label for="profileGender">
+              Gender
+              <select id="profileGender" name="gender" required>
+                <option value="">Select gender</option>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Other">Other / Prefer not to say</option>
+              </select>
+            </label>
+          </div>
+          <div class="profile-row">
+            <label for="profileWhatsapp">
+              Contact number
+              <input id="profileWhatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="+91 98765 43210" required />
+            </label>
+          </div>
+          <div class="profile-row profile-row-emergency">
+            <label for="profileEmergencyName">
+              Primary emergency contact name <span aria-hidden="true">*</span>
+              <input id="profileEmergencyName" name="emergencyName" type="text" autocomplete="off" placeholder="Primary contact name" required />
+            </label>
+            <label for="profileEmergencyWhatsapp">
+              Number <span aria-hidden="true">*</span>
+              <input id="profileEmergencyWhatsapp" name="emergencyWhatsapp" type="tel" inputmode="tel" autocomplete="off" placeholder="+91 98765 43210" required />
+            </label>
+          </div>
+          <div class="profile-row profile-row-emergency">
+            <label for="profileSecondaryEmergencyName">
+              Secondary emergency contact name
+              <input id="profileSecondaryEmergencyName" name="secondaryEmergencyName" type="text" autocomplete="off" placeholder="Optional" />
+            </label>
+            <label for="profileSecondaryEmergencyWhatsapp">
+              Number
+              <input id="profileSecondaryEmergencyWhatsapp" name="secondaryEmergencyWhatsapp" type="tel" inputmode="tel" autocomplete="off" placeholder="Optional" />
+            </label>
+          </div>
+          <div class="profile-row profile-row-emergency">
+            <label for="profileBloodGroup">
+              Blood group
+              <select id="profileBloodGroup" name="bloodGroup">
+                <option value="">Select blood group</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="Unknown">Unknown</option>
+              </select>
+            </label>
+          </div>
+          <p class="profile-note">Calls go to your primary contact. Emergency messages open WhatsApp drafts for both contacts; tap Send in each chat.</p>
+          <div class="location-share-actions">
+            <button class="secondary-button" type="button" data-profile-action="close">Cancel</button>
+            <button class="primary-button" type="submit">Save Profile</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="toast" class="toast" aria-live="polite"></div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

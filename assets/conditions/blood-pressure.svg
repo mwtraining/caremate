@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480" role="img" aria-labelledby="title">
+  <title id="title">Blood pressure illustration</title>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#071629"/><stop offset="1" stop-color="#173c53"/></linearGradient>
+    <linearGradient id="cuff" x2=".8" y2="1"><stop stop-color="#8cf6ff"/><stop offset=".5" stop-color="#438fda"/><stop offset="1" stop-color="#343e91"/></linearGradient>
+    <linearGradient id="dial" x2="1" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#c7e4f0"/></linearGradient>
+    <filter id="shadow" x="-.4" y="-.3" width="1.8" height="1.8"><feDropShadow dx="0" dy="17" stdDeviation="13" flood-color="#000" flood-opacity=".65"/></filter>
+  </defs>
+  <rect width="720" height="480" rx="38" fill="url(#bg)"/><circle cx="360" cy="230" r="178" fill="#54e9ff" opacity=".08"/>
+  <g filter="url(#shadow)"><path d="M186 242c0-72 59-131 132-131h84c73 0 132 59 132 131v62H186z" fill="url(#cuff)" stroke="#c9fbff" stroke-width="9"/><rect x="219" y="190" width="282" height="160" rx="33" fill="url(#cuff)" stroke="#d7fbff" stroke-width="8"/><circle cx="360" cy="241" r="75" fill="url(#dial)" stroke="#fff" stroke-width="9"/><path d="M309 254a53 53 0 0 1 102 0" fill="none" stroke="#34b879" stroke-width="11" stroke-linecap="round"/><path d="M360 239l-31-28" stroke="#e64b66" stroke-width="9" stroke-linecap="round"/><circle cx="360" cy="239" r="10" fill="#25364e"/><path d="M360 316v42m0 0h68" fill="none" stroke="#dffbff" stroke-width="10" stroke-linecap="round"/><path d="M548 169c40 3 65 30 65 66v52" fill="none" stroke="#d8fbff" stroke-width="10"/><circle cx="613" cy="291" r="18" fill="#ff6384" stroke="#ffe4ea" stroke-width="6"/></g>
+  <text x="360" y="447" text-anchor="middle" fill="#f3faff" font-family="Arial,sans-serif" font-size="28" font-weight="700" letter-spacing="3">BLOOD PRESSURE</text>
+</svg>

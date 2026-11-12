@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480" role="img" aria-labelledby="title">
+  <title id="title">Pregnancy care illustration</title>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#071a2b"/><stop offset="1" stop-color="#17484a"/></linearGradient>
+    <linearGradient id="dress" x2=".8" y2="1"><stop stop-color="#9affde"/><stop offset=".45" stop-color="#32c99b"/><stop offset="1" stop-color="#187968"/></linearGradient>
+    <radialGradient id="skin" cx=".35" cy=".25"><stop stop-color="#fff0d3"/><stop offset="1" stop-color="#de8b72"/></radialGradient>
+    <filter id="shadow" x="-.4" y="-.3" width="1.8" height="1.8"><feDropShadow dx="0" dy="17" stdDeviation="13" flood-color="#000" flood-opacity=".65"/></filter>
+  </defs>
+  <rect width="720" height="480" rx="38" fill="url(#bg)"/><circle cx="360" cy="231" r="182" fill="#52f1c0" opacity=".09"/><circle cx="543" cy="108" r="34" fill="#fff19a" opacity=".9"/>
+  <g filter="url(#shadow)"><circle cx="354" cy="138" r="54" fill="url(#skin)" stroke="#ffe3c3" stroke-width="7"/><path d="M300 134c4-56 52-78 95-53 21 13 29 36 26 56-30-6-51-23-63-44-11 20-28 34-58 41z" fill="#443153"/><path d="M305 201q49 26 98 0l44 159q-77 56-188 0z" fill="url(#dress)" stroke="#baffea" stroke-width="8"/><path d="M312 258c38-31 94-24 126 12 35 40 14 94-35 104-45 10-97-23-98-66 0-20 2-36 7-50z" fill="url(#skin)" stroke="#ffe3c3" stroke-width="7"/><path d="M323 302c30 17 56 18 84 2" fill="none" stroke="#c56c74" stroke-width="7" stroke-linecap="round"/><path d="M235 221l36 51m214-46-37 49" stroke="#baffea" stroke-width="17" stroke-linecap="round"/></g>
+  <path d="M522 214c0-22 28-30 40-12 12-18 40-10 40 12 0 20-40 47-40 47s-40-27-40-47z" fill="#ff83a6" stroke="#ffe0e8" stroke-width="5"/><text x="360" y="447" text-anchor="middle" fill="#f3fff9" font-family="Arial,sans-serif" font-size="27" font-weight="700" letter-spacing="2">PREGNANCY CARE</text>
+</svg>

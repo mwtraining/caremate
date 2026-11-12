@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480" role="img" aria-labelledby="title">
+  <title id="title">Menstrual pain illustration</title>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#17122f"/><stop offset="1" stop-color="#482548"/></linearGradient>
+    <linearGradient id="bottle" x2=".8" y2="1"><stop stop-color="#ffbde2"/><stop offset=".45" stop-color="#e35fb2"/><stop offset="1" stop-color="#8d3eaf"/></linearGradient>
+    <linearGradient id="flower" x2=".7" y2="1"><stop stop-color="#fff1b1"/><stop offset=".45" stop-color="#ff83ca"/><stop offset="1" stop-color="#bc4dbc"/></linearGradient>
+    <filter id="shadow" x="-.4" y="-.3" width="1.8" height="1.8"><feDropShadow dx="0" dy="16" stdDeviation="12" flood-color="#000" flood-opacity=".65"/></filter>
+  </defs>
+  <rect width="720" height="480" rx="38" fill="url(#bg)"/><circle cx="360" cy="224" r="170" fill="#fc67c7" opacity=".1"/>
+  <g filter="url(#shadow)"><rect x="269" y="133" width="182" height="232" rx="64" fill="url(#bottle)" stroke="#ffd4f0" stroke-width="9"/><rect x="302" y="103" width="116" height="50" rx="16" fill="#f7c7eb" stroke="#fff0fd" stroke-width="7"/><path d="M302 237q59-45 118 0v59q-59 45-118 0z" fill="#fff3fa" fill-opacity=".25" stroke="#ffe8f7" stroke-width="6"/><path d="M360 211c-16-14-29-24-29-38 0-13 16-18 29-4 13-14 29-9 29 4 0 14-13 24-29 38z" fill="#fff1a6"/></g>
+  <g fill="url(#flower)" stroke="#ffe8fa" stroke-width="4"><ellipse cx="176" cy="182" rx="19" ry="39"/><ellipse cx="176" cy="182" rx="19" ry="39" transform="rotate(60 176 182)"/><ellipse cx="176" cy="182" rx="19" ry="39" transform="rotate(120 176 182)"/><circle cx="176" cy="182" r="14" fill="#fff39c"/></g><g fill="url(#flower)" stroke="#ffe8fa" stroke-width="4"><ellipse cx="536" cy="285" rx="17" ry="34"/><ellipse cx="536" cy="285" rx="17" ry="34" transform="rotate(60 536 285)"/><ellipse cx="536" cy="285" rx="17" ry="34" transform="rotate(120 536 285)"/><circle cx="536" cy="285" r="13" fill="#fff39c"/></g>
+  <text x="360" y="447" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="27" font-weight="700" letter-spacing="2">MENSTRUAL CARE</text>
+</svg>

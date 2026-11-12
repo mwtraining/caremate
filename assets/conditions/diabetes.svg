@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480" role="img" aria-labelledby="title">
+  <title id="title">Diabetes illustration</title>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#071729"/><stop offset="1" stop-color="#153d55"/></linearGradient>
+    <linearGradient id="meter" x2=".8" y2="1"><stop stop-color="#efffff"/><stop offset=".45" stop-color="#a6d5e5"/><stop offset="1" stop-color="#54749b"/></linearGradient>
+    <linearGradient id="screen" x2="1" y2="1"><stop stop-color="#163f52"/><stop offset="1" stop-color="#101e36"/></linearGradient>
+    <linearGradient id="drop" x2=".7" y2="1"><stop stop-color="#ffa69f"/><stop offset=".5" stop-color="#f54d70"/><stop offset="1" stop-color="#a31d56"/></linearGradient>
+    <filter id="shadow" x="-.4" y="-.3" width="1.8" height="1.8"><feDropShadow dx="0" dy="17" stdDeviation="13" flood-color="#000" flood-opacity=".65"/></filter>
+  </defs>
+  <rect width="720" height="480" rx="38" fill="url(#bg)"/><circle cx="360" cy="232" r="174" fill="#50e5ff" opacity=".08"/>
+  <g filter="url(#shadow)"><rect x="236" y="113" width="248" height="265" rx="39" fill="url(#meter)" stroke="#e4ffff" stroke-width="9"/><rect x="264" y="145" width="192" height="119" rx="19" fill="url(#screen)" stroke="#c9faff" stroke-width="6"/><text x="360" y="192" fill="#94ffbd" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" font-weight="700">GLUCOSE</text><text x="360" y="240" fill="#fff" text-anchor="middle" font-family="Arial,sans-serif" font-size="47" font-weight="700">108</text><circle cx="360" cy="319" r="28" fill="#dffbff" stroke="#fff" stroke-width="6"/><path d="M360 281v76" stroke="#7793a9" stroke-width="7"/><path d="M201 158c-20 34-33 47-33 70a34 34 0 0 0 68 0c0-23-14-36-35-70z" fill="url(#drop)" stroke="#ffd8d2" stroke-width="6"/><path d="M518 239c-20 34-33 47-33 70a34 34 0 0 0 68 0c0-23-14-36-35-70z" fill="url(#drop)" stroke="#ffd8d2" stroke-width="6"/></g>
+  <text x="360" y="447" text-anchor="middle" fill="#f3faff" font-family="Arial,sans-serif" font-size="28" font-weight="700" letter-spacing="3">BLOOD SUGAR</text>
+</svg>

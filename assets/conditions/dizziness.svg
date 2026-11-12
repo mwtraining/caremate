@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480" role="img" aria-labelledby="title">
+  <title id="title">Dizziness illustration</title>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#071526"/><stop offset="1" stop-color="#123b55"/></linearGradient>
+    <linearGradient id="person" x2=".8" y2="1"><stop stop-color="#f8d4a9"/><stop offset=".55" stop-color="#e78b73"/><stop offset="1" stop-color="#903f75"/></linearGradient>
+    <linearGradient id="orbit"><stop stop-color="#5cf4ff"/><stop offset="1" stop-color="#8475ff"/></linearGradient>
+    <filter id="shadow" x="-.4" y="-.4" width="1.8" height="1.8"><feDropShadow dx="0" dy="15" stdDeviation="12" flood-color="#000" flood-opacity=".6"/></filter>
+  </defs>
+  <rect width="720" height="480" rx="38" fill="url(#bg)"/><ellipse cx="360" cy="220" rx="214" ry="115" fill="none" stroke="url(#orbit)" stroke-width="9" opacity=".8" transform="rotate(-24 360 220)"/><ellipse cx="360" cy="220" rx="214" ry="115" fill="none" stroke="#ff70d4" stroke-width="6" opacity=".65" transform="rotate(34 360 220)"/>
+  <g filter="url(#shadow)"><circle cx="360" cy="206" r="81" fill="url(#person)" stroke="#ffe7cc" stroke-width="7"/><path d="M291 190c10-59 55-84 103-68 29 10 43 34 39 61-30-8-52-30-61-50-14 33-41 48-81 57z" fill="#292c5d"/><path d="M276 332c12-48 45-73 84-73s72 25 84 73l20 66H256z" fill="url(#person)" stroke="#ffc9bd" stroke-width="7"/><circle cx="331" cy="211" r="7" fill="#182548"/><circle cx="389" cy="211" r="7" fill="#182548"/><path d="M337 246q23 17 46 0" fill="none" stroke="#873f62" stroke-width="7" stroke-linecap="round"/></g>
+  <g fill="#fff078" stroke="#ffb535" stroke-width="5"><path d="m171 131 7 20 20 7-20 7-7 20-7-20-20-7 20-7z"/><path d="m539 277 6 16 16 6-16 6-6 16-6-16-16-6 16-6z"/></g><text x="360" y="447" text-anchor="middle" fill="#f3f8ff" font-family="Arial,sans-serif" font-size="28" font-weight="700" letter-spacing="3">DIZZINESS</text>
+</svg>
