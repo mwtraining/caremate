@@ -1906,7 +1906,7 @@ function handleVoiceInput() {
     recognition.interimResults = false;
 
     recognition.onstart = () => {
-      showToast('Listening. Say “call emergency contact”, “call SOS”, or “open SOS”.');
+      showToast('Listening. Say “call SOS”, “send SOS message”, or “open SOS”.');
     };
     recognition.onresult = (event) => {
       receivedResult = true;
@@ -1996,7 +1996,12 @@ function handleVoiceCommand(command) {
     'send message to emergency contact',
     'send emergency message',
     'send sos',
-    'send sos message'
+    'send sos message',
+    'share message',
+    'share emergency message',
+    'share sos message',
+    'open whatsapp',
+    'open whatsapp message'
   ];
   if (messageCommands.includes(normalized)) {
     return openWhatsAppForVoiceCommand();
