@@ -1399,6 +1399,31 @@ function startEmergencyWhatsAppFlow() {
   );
 }
 
+function openWhatsAppForVoiceCommand() {
+  const recipient = getEmergencyRecipient();
+  if (!recipient?.phone) {
+    showToast('Add a primary emergency contact name and number in Profile first.');
+    openProfileModal();
+    return false;
+  }
+
+  const openDraft = () => {
+    const phoneDigits = recipient.phone.replace(/\D/g, '');
+    const message = createEmergencyMessage();
+    showToast('Opening WhatsApp. Review the emergency message and tap Send.');
+    window.location.href = `https://wa.me/${phoneDigits}?text=${encodeURIComponent(message)}`;
+  };
+
+  if (state.currentLocation) {
+    openDraft();
+    return true;
+  }
+
+  showToast('Getting your location before opening WhatsApp...');
+  requestLocation(openDraft, openDraft);
+  return true;
+}
+
 function startSosCall() {
   const primaryContact = getEmergencyRecipient();
   if (!primaryContact) {
@@ -1955,14 +1980,7 @@ function handleVoiceCommand(command) {
   const isCallCommand = /\b(call|phone|dial)\b/.test(normalized)
     && /\b(emergency|emergence|sos|contact)\b/.test(normalized);
   if (isCallCommand) {
-    const emergencyContact = getEmergencyRecipient() || state.contacts[0];
-    if (emergencyContact) {
-      showView('sos');
-      showToast(`Tap Call Contact to call ${emergencyContact.name}.`);
-    } else {
-      showToast('No emergency contact is saved yet.');
-      speakProfileMessage('No emergency contact is saved yet.');
-    }
+    startSosCall();
     return true;
   }
 
@@ -1976,28 +1994,12 @@ function handleVoiceCommand(command) {
     'send message to emergency',
     'send message to emergence',
     'send message to emergency contact',
-    'send emergency message'
+    'send emergency message',
+    'send sos',
+    'send sos message'
   ];
   if (messageCommands.includes(normalized)) {
-    const recipient = getEmergencyRecipient();
-    if (!recipient?.phone) {
-      showToast('Add an emergency contact name and number in Profile first.');
-      speakProfileMessage('Add an emergency contact name and number in Profile first.');
-      openProfileModal();
-      return;
-    }
-
-    speakEmergencyFeedback('Sending message to emergency contact', () => {
-      showView('sos');
-      renderSosPanel();
-      openWhatsAppForEmergencyContactsWithLocation(
-        (location, locationAvailable) => locationAvailable
-          ? createEmergencyMessage()
-          : includeUnavailableLocationInMessage(createEmergencyMessage()),
-        'Getting your location for the emergency message...'
-      );
-    });
-    return true;
+    return openWhatsAppForVoiceCommand();
   }
 
   const message = 'Voice command not recognized. Try: open SOS or open AI assistant.';
