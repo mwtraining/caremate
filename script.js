@@ -108,6 +108,7 @@ const state = {
 
 let homeWellnessDraftDirty = false;
 let homeWellnessEditing = false;
+let activeVoiceRecognition = null;
 let medicineReminderAudioContext = null;
 let medicineReminderAudioUnavailable = false;
 
@@ -1201,7 +1202,8 @@ function renderSosPanel() {
     container.innerHTML = `
       <div class="sos-status">🚨 SOS OFF</div>
       <p>Emergency assistance mode is not active. Use it only when immediate help is needed.</p>
-      <div class="button-stack compact">
+      <div class="sos-actions">
+        <button class="secondary-button" data-sos-action="call-contact">📞 Call Contact</button>
         <button class="primary-button" data-action="activate-sos">Activate SOS</button>
       </div>
     `;
@@ -1859,25 +1861,54 @@ function handleWaterAction(action) {
 }
 
 function handleVoiceInput() {
-  if (!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
-    showToast('Voice assistance is not supported by this browser. Please use the buttons.');
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    showToast('Voice commands are not supported by this browser. Use the SOS and Call Contact buttons instead.');
     return;
   }
 
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  const recognition = new SpeechRecognition();
-  recognition.lang = 'en-US';
-  recognition.interimResults = false;
-  recognition.start();
+  if (activeVoiceRecognition) {
+    showToast('Voice assistance is already listening. Say a command or wait for it to stop.');
+    return;
+  }
 
-  recognition.onresult = (event) => {
-    const spoken = event.results[0][0].transcript.toLowerCase();
-    handleVoiceCommand(spoken);
-  };
+  let recognition;
+  try {
+    recognition = new SpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
 
-  recognition.onerror = () => {
-    showToast('Voice command was not recognized. Please try again.');
-  };
+    recognition.onstart = () => {
+      showToast('Listening. Say “call emergency contact”, “call SOS”, or “open SOS”.');
+    };
+    recognition.onresult = (event) => {
+      const spoken = event.results[0]?.[0]?.transcript?.toLowerCase() || '';
+      if (spoken) handleVoiceCommand(spoken);
+      else showToast('No command was heard. Tap Voice Assistance and try again.');
+    };
+    recognition.onerror = (event) => {
+      const messages = {
+        'not-allowed': 'Microphone access is blocked. Allow microphone access for this site in your browser settings.',
+        'service-not-allowed': 'Speech recognition is blocked by this browser. Use the SOS and Call Contact buttons instead.',
+        'no-speech': 'No speech was heard. Tap Voice Assistance and try again.',
+        'audio-capture': 'No microphone is available. Check your device microphone settings.',
+        network: 'Voice recognition needs an internet connection. Check your connection and try again.'
+      };
+      if (event.error !== 'aborted') {
+        showToast(messages[event.error] || 'Voice recognition failed. Check microphone permission and try again.');
+      }
+    };
+    recognition.onend = () => {
+      if (activeVoiceRecognition === recognition) activeVoiceRecognition = null;
+    };
+
+    activeVoiceRecognition = recognition;
+    recognition.start();
+  } catch (error) {
+    activeVoiceRecognition = null;
+    console.warn('CareMate could not start voice recognition.', error);
+    showToast('Could not start voice recognition. Allow microphone access and try again.');
+  }
 }
 
 function handleVoiceCommand(command) {
@@ -1901,16 +1932,13 @@ function handleVoiceCommand(command) {
     return;
   }
 
-  if (
-    normalized.includes('call emergency') ||
-    normalized.includes('call emergence') ||
-    normalized.includes('call my emergency contact')
-  ) {
+  const isCallCommand = /\b(call|phone|dial)\b/.test(normalized)
+    && /\b(emergency|emergence|sos|contact)\b/.test(normalized);
+  if (isCallCommand) {
     const emergencyContact = getEmergencyRecipient() || state.contacts[0];
     if (emergencyContact) {
-      speakEmergencyFeedback('Calling emergency contact', () => {
-        window.location.href = `tel:${emergencyContact.phone}`;
-      });
+      showView('sos');
+      showToast(`Tap Call Contact to call ${emergencyContact.name}.`);
     } else {
       showToast('No emergency contact is saved yet.');
       speakProfileMessage('No emergency contact is saved yet.');
