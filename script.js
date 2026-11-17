@@ -1407,20 +1407,9 @@ function openWhatsAppForVoiceCommand() {
     return false;
   }
 
-  const openDraft = () => {
-    const phoneDigits = recipient.phone.replace(/\D/g, '');
-    const message = createEmergencyMessage();
-    showToast('Opening WhatsApp. Review the emergency message and tap Send.');
-    window.location.href = `https://wa.me/${phoneDigits}?text=${encodeURIComponent(message)}`;
-  };
-
-  if (state.currentLocation) {
-    openDraft();
-    return true;
-  }
-
-  showToast('Getting your location before opening WhatsApp...');
-  requestLocation(openDraft, openDraft);
+  const phoneDigits = recipient.phone.replace(/\D/g, '');
+  const message = createEmergencyMessage();
+  window.location.href = `https://wa.me/${phoneDigits}?text=${encodeURIComponent(message)}`;
   return true;
 }
 
@@ -1959,7 +1948,8 @@ function showVoiceCommandFallback(message, command = '') {
 function handleVoiceCommand(command) {
   const normalized = command.trim().toLowerCase().replace(/[.!?,]/g, '').replace(/\s+/g, ' ');
   const views = {
-    'open sos': 'sos',
+    'open sos panel': 'sos',
+    'show sos panel': 'sos',
     'open health': 'elderly',
     'open medicine': 'elderly',
     'open elderly care': 'elderly',
@@ -1997,6 +1987,12 @@ function handleVoiceCommand(command) {
     'send emergency message',
     'send sos',
     'send sos message',
+    'sos',
+    's o s',
+    'sos activation',
+    'activate sos',
+    'open sos',
+    'open sos activation',
     'share message',
     'share emergency message',
     'share sos message',
