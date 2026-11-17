@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ai-care-plus-v90';
+const CACHE_NAME = 'ai-care-plus-v91';
 const APP_ASSETS = [
   './',
   './index.html',

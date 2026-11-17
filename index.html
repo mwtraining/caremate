@@ -649,6 +649,23 @@
       </div>
     </div>
 
+    <div id="voiceCommandModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="voiceCommandTitle">
+      <div class="modal-card compact-modal">
+        <h3 id="voiceCommandTitle">Enter a voice command</h3>
+        <p id="voiceCommandHelp" role="status" aria-live="polite"></p>
+        <form id="voiceCommandForm" class="stack-form">
+          <label for="voiceCommandInput">
+            Command
+            <input id="voiceCommandInput" name="command" type="text" autocomplete="off" placeholder="For example, open SOS" required />
+          </label>
+          <div class="location-share-actions">
+            <button class="secondary-button" type="button" data-voice-fallback-action="close">Cancel</button>
+            <button class="primary-button" type="submit">Run command</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <div id="toast" class="toast" aria-live="polite"></div>
 
     <script src="./script.js"></script>

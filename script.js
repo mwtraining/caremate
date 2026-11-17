@@ -1863,7 +1863,7 @@ function handleWaterAction(action) {
 function handleVoiceInput() {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SpeechRecognition) {
-    showToast('Voice commands are not supported by this browser. Use the SOS and Call Contact buttons instead.');
+    showVoiceCommandFallback('Safari did not provide speech recognition. You can dictate with the keyboard microphone or type a command.');
     return;
   }
 
@@ -1873,6 +1873,8 @@ function handleVoiceInput() {
   }
 
   let recognition;
+  let receivedResult = false;
+  let receivedError = false;
   try {
     recognition = new SpeechRecognition();
     recognition.lang = 'en-US';
@@ -1882,11 +1884,13 @@ function handleVoiceInput() {
       showToast('Listening. Say “call emergency contact”, “call SOS”, or “open SOS”.');
     };
     recognition.onresult = (event) => {
+      receivedResult = true;
       const spoken = event.results[0]?.[0]?.transcript?.toLowerCase() || '';
       if (spoken) handleVoiceCommand(spoken);
-      else showToast('No command was heard. Tap Voice Assistance and try again.');
+      else showVoiceCommandFallback('Safari did not return the spoken command. Dictate with the keyboard microphone or type a command.');
     };
     recognition.onerror = (event) => {
+      receivedError = true;
       const messages = {
         'not-allowed': 'Microphone access is blocked. Allow microphone access for this site in your browser settings.',
         'service-not-allowed': 'Speech recognition is blocked by this browser. Use the SOS and Call Contact buttons instead.',
@@ -1895,11 +1899,19 @@ function handleVoiceInput() {
         network: 'Voice recognition needs an internet connection. Check your connection and try again.'
       };
       if (event.error !== 'aborted') {
-        showToast(messages[event.error] || 'Voice recognition failed. Check microphone permission and try again.');
+        const message = messages[event.error] || 'Voice recognition failed. Check microphone permission and try again.';
+        showVoiceCommandFallback(`${message} You can dictate with the keyboard microphone or type a command.`);
       }
     };
     recognition.onend = () => {
       if (activeVoiceRecognition === recognition) activeVoiceRecognition = null;
+      if (!receivedResult && !receivedError) {
+        showVoiceCommandFallback('Safari ended listening without returning a command. Dictate with the keyboard microphone or type a command.');
+      }
+    };
+    recognition.onnomatch = () => {
+      receivedError = true;
+      showVoiceCommandFallback('Safari could not recognize those words. Dictate with the keyboard microphone or type a command.');
     };
 
     activeVoiceRecognition = recognition;
@@ -1907,8 +1919,16 @@ function handleVoiceInput() {
   } catch (error) {
     activeVoiceRecognition = null;
     console.warn('CareMate could not start voice recognition.', error);
-    showToast('Could not start voice recognition. Allow microphone access and try again.');
+    showVoiceCommandFallback('Could not start speech recognition. Dictate with the keyboard microphone or type a command.');
   }
+}
+
+function showVoiceCommandFallback(message, command = '') {
+  document.getElementById('voiceCommandHelp').textContent = message;
+  const input = document.getElementById('voiceCommandInput');
+  input.value = command;
+  document.getElementById('voiceCommandModal').classList.remove('hidden');
+  input.focus();
 }
 
 function handleVoiceCommand(command) {
@@ -1929,7 +1949,7 @@ function handleVoiceCommand(command) {
     const message = `Opening ${views[normalized]}.`;
     showToast(message);
     speakProfileMessage(message);
-    return;
+    return true;
   }
 
   const isCallCommand = /\b(call|phone|dial)\b/.test(normalized)
@@ -1943,7 +1963,7 @@ function handleVoiceCommand(command) {
       showToast('No emergency contact is saved yet.');
       speakProfileMessage('No emergency contact is saved yet.');
     }
-    return;
+    return true;
   }
 
   const messageCommands = [
@@ -1977,12 +1997,13 @@ function handleVoiceCommand(command) {
         'Getting your location for the emergency message...'
       );
     });
-    return;
+    return true;
   }
 
   const message = 'Voice command not recognized. Try: open SOS or open AI assistant.';
   showToast(message);
   speakProfileMessage(message);
+  return false;
 }
 
 async function speakEmergencyFeedback(message, onComplete) {
@@ -2158,6 +2179,12 @@ function initializeApp() {
     const profileOpenButton = event.target.closest('[data-action="profile-open"]');
     if (profileOpenButton) {
       openProfileModal();
+      return;
+    }
+
+    const voiceFallbackClose = event.target.closest('[data-voice-fallback-action="close"]');
+    if (voiceFallbackClose || event.target.id === 'voiceCommandModal') {
+      document.getElementById('voiceCommandModal').classList.add('hidden');
       return;
     }
 
@@ -2442,6 +2469,15 @@ function initializeApp() {
 
   document.getElementById('signOutButton').addEventListener('click', signOut);
   document.getElementById('profileForm').addEventListener('submit', saveProfile);
+  document.getElementById('voiceCommandForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const input = document.getElementById('voiceCommandInput');
+    if (handleVoiceCommand(input.value)) {
+      document.getElementById('voiceCommandModal').classList.add('hidden');
+    } else {
+      input.focus();
+    }
+  });
   document.getElementById('homeWellnessForm').addEventListener('submit', saveHomeWellness);
   document.getElementById('editHomeWellness').addEventListener('click', editHomeWellness);
   document.getElementById('homeWellnessForm').addEventListener('change', () => {
