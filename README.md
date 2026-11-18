@@ -25,7 +25,7 @@ AI Care+ offers a simple app-style experience with:
 - Health and wellness checks
 - Blood group saved in Profile and independent disease checklists with common conditions and custom entries on both safety dashboards
 - Medicine reminders
-- Water reminders
+- Multiple daily water alarms with individual on/off and delete controls
 - AI rule-based recommendations
 - Accessibility options such as large text and dark mode
 
@@ -55,10 +55,11 @@ This project demonstrates the following AI ideas:
 - Health and wellness dashboard
 - Home wellness controls for daily water, sleep, and medicine status; medicine status starts at NA and can be set to Needs attention or On track; select Edit Wellness to change values and save them together
 - Multiple medicine reminders with selected days of the week or monthly schedules, and a time field that supports choosing or manually entering any minute; reminders announce the medicine and scheduled time, then beep five times while CareMate is open; monthly reminders use the month's last day when the selected date does not exist
-- Water reminder system
+- Water tracker with multiple daily alarms at user-selected times; each alarm beeps, then announces that it is time to drink water. Keep CareMate open and the device awake for alerts, and allow browser notifications for system alerts
 - AI assistant with rule-based recommendations
 - Symptom guidance without diagnosis
 - Voice assistance and medicine/water reminders wait for browser voices to load, then select a voice matching Profile gender; if none is available, the browser default voice uses an adjusted pitch
+- Voice commands include “call emergency contact”, “call SOS”, “send SOS message”, “share message”, “open WhatsApp”, and “open SOS”. SOS/message commands open WhatsApp directly with a prepared emergency message and the last saved location, if available. To show the in-app SOS panel, say “open SOS panel”. Call commands open the device dialer for the saved primary contact. The user must review and tap Send in WhatsApp. If Safari does not return a speech result, use the keyboard microphone to dictate a command or type it
 - Primary and secondary emergency contacts; calls go to primary, messages are prepared for both
 - Accessibility features
 - Local storage demo data
@@ -258,7 +259,7 @@ A: It prevents accidental activation and helps users remain in control of emerge
 A: A normal website displays information, while an AI-assisted app processes user inputs and provides smart recommendations.
 
 ### Q21. Why did you include voice support?
-A: Voice Assistance provides hands-free commands to open app sections, call the primary emergency contact, or prepare emergency messages in WhatsApp for the primary and optional secondary contacts. Emergency actions are announced aloud when speech playback is supported. The user must tap Send in each WhatsApp chat to deliver the messages.
+A: Voice Assistance can recognize commands to open app sections, call the primary emergency contact, or open a prefilled WhatsApp emergency message. The device handles calls, and the user must review and tap Send in WhatsApp to deliver a message.
 
 ### Q22. Why do you include accessibility features?
 A: Accessibility helps all users, especially elderly users, read and use the app more easily.

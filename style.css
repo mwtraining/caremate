@@ -1151,6 +1151,63 @@ body[data-theme="dark"] .topbar {
   font-size: 0.85rem;
 }
 
+.water-reminder-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.water-reminder-heading h4 {
+  margin: 0;
+}
+
+.water-reminder-list {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.7rem;
+}
+
+.water-reminder-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.7rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--panel-soft);
+}
+
+.water-reminder-item strong,
+.water-reminder-item small {
+  display: block;
+}
+
+.water-reminder-item small {
+  margin-top: 0.15rem;
+  color: var(--muted);
+}
+
+.water-reminder-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.water-reminder-actions .secondary-button {
+  padding: 0.5rem 0.65rem;
+}
+
+.water-reminder-form {
+  margin-top: 0.8rem;
+}
+
+.water-reminder-form[hidden] {
+  display: none;
+}
+
 .condition-picker {
   max-width: 420px;
 }

@@ -7,6 +7,7 @@ const STORAGE_KEYS = {
   contacts: 'aiCareContacts',
   reminders: 'aiCareReminders',
   waterLogs: 'aiCareWaterLogs',
+  waterReminder: 'aiCareWaterReminder',
   safetyCheckins: 'aiCareSafetyCheckins',
   elderlyMood: 'aiCareElderlyMood',
   wellnessMedicineStatuses: 'aiCareWellnessMedicineStatuses',
@@ -87,6 +88,8 @@ const state = {
   contacts: [],
   reminders: [],
   waterLogs: [],
+  waterReminders: [],
+  waterReminderFormOpen: false,
   checkins: [],
   moodLog: {},
   medicineLogs: {},
@@ -216,6 +219,45 @@ function ensureDemoData() {
     value: Number(entry.value || 0)
   }));
 
+  const savedWaterReminders = safeStorageGet(STORAGE_KEYS.waterReminder, []);
+  if (Array.isArray(savedWaterReminders)) {
+    const reminderIds = new Set();
+    state.waterReminders = savedWaterReminders
+      .filter((reminder) => reminder && typeof reminder === 'object')
+      .map((reminder, index) => {
+        const baseId = typeof reminder.id === 'string' && reminder.id
+          ? reminder.id
+          : `water-${index + 1}`;
+        let id = baseId;
+        let duplicateIndex = 1;
+        while (reminderIds.has(id)) {
+          id = `${baseId}-${duplicateIndex}`;
+          duplicateIndex += 1;
+        }
+        reminderIds.add(id);
+        return {
+          id,
+          time: normalizeReminderTime(reminder.time),
+          enabled: reminder.enabled !== false,
+          lastAlertedDate: typeof reminder.lastAlertedDate === 'string'
+            ? reminder.lastAlertedDate
+            : ''
+        };
+      });
+  } else if (savedWaterReminders && typeof savedWaterReminders === 'object' && savedWaterReminders.enabled) {
+    state.waterReminders = [{
+      id: 'legacy-water-reminder',
+      time: normalizeReminderTime(savedWaterReminders.time),
+      enabled: true,
+      lastAlertedDate: typeof savedWaterReminders.lastAlertedDate === 'string'
+        ? savedWaterReminders.lastAlertedDate
+        : ''
+    }];
+  } else {
+    state.waterReminders = [];
+  }
+  state.waterReminderFormOpen = false;
+
   state.checkins = safeStorageGet(STORAGE_KEYS.safetyCheckins, []);
   if (!Array.isArray(state.checkins)) {
     state.checkins = [];
@@ -311,6 +353,7 @@ function persistState() {
   safeStorageSet(STORAGE_KEYS.contacts, state.contacts);
   safeStorageSet(STORAGE_KEYS.reminders, state.reminders);
   safeStorageSet(STORAGE_KEYS.waterLogs, state.waterLogs);
+  safeStorageSet(STORAGE_KEYS.waterReminder, state.waterReminders);
   safeStorageSet(STORAGE_KEYS.safetyCheckins, state.checkins);
   safeStorageSet(STORAGE_KEYS.elderlyMood, state.moodLog);
   safeStorageSet(STORAGE_KEYS.medicineLogs, state.medicineLogs);
@@ -996,7 +1039,7 @@ function checkMedicineReminderAlerts() {
     const timeLabel = formatReminderTime(reminder.time);
     const message = `${reminder.name} reminder at ${timeLabel}`;
     playMedicineReminderSound(reminder);
-    if ('Notification' in window && Notification.permission === 'granted') {
+    if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
       try {
         const notification = new Notification('Medicine reminder', { body: message });
         notification.onclick = () => {
@@ -1009,6 +1052,43 @@ function checkMedicineReminderAlerts() {
       }
     } else {
       showToast(message);
+    }
+  });
+}
+
+function checkWaterReminderAlert() {
+  if (!state.waterReminders.length) return;
+
+  const now = new Date();
+  const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+  const dateKey = getLocalDateKey(now);
+  const dueReminders = state.waterReminders.filter((reminder) => (
+    reminder.enabled
+    && reminder.time === currentTime
+    && reminder.lastAlertedDate !== dateKey
+  ));
+  if (!dueReminders.length) return;
+
+  dueReminders.forEach((reminder) => {
+    reminder.lastAlertedDate = dateKey;
+  });
+  persistState();
+
+  dueReminders.forEach((reminder) => {
+    const message = `It is time to drink a glass of water. (${formatReminderTime(reminder.time)})`;
+    playWaterReminderSound();
+    showToast(message);
+
+    if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+      try {
+        const notification = new Notification('Water reminder', { body: message });
+        notification.onclick = () => {
+          window.focus();
+          notification.close();
+        };
+      } catch (error) {
+        console.warn('Water reminder notification could not be displayed.', error);
+      }
     }
   });
 }
@@ -1159,19 +1239,22 @@ async function playMedicineReminderBeeps(message) {
     }
 
     const startTime = medicineReminderAudioContext.currentTime;
-    Array.from({ length: 5 }, (_, index) => index).forEach((index) => {
-      const start = startTime + index * 0.55;
-      const oscillator = medicineReminderAudioContext.createOscillator();
-      const gain = medicineReminderAudioContext.createGain();
-      oscillator.type = 'sine';
-      oscillator.frequency.value = index % 2 === 0 ? 880 : 660;
-      gain.gain.setValueAtTime(0.0001, start);
-      gain.gain.exponentialRampToValueAtTime(0.22, start + 0.025);
-      gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.3);
-      oscillator.connect(gain);
-      gain.connect(medicineReminderAudioContext.destination);
-      oscillator.start(start);
-      oscillator.stop(start + 0.31);
+    await new Promise((resolve) => {
+      Array.from({ length: 5 }, (_, index) => index).forEach((index) => {
+        const start = startTime + index * 0.55;
+        const oscillator = medicineReminderAudioContext.createOscillator();
+        const gain = medicineReminderAudioContext.createGain();
+        oscillator.type = 'sine';
+        oscillator.frequency.value = index % 2 === 0 ? 880 : 660;
+        gain.gain.setValueAtTime(0.0001, start);
+        gain.gain.exponentialRampToValueAtTime(0.22, start + 0.025);
+        gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.3);
+        oscillator.connect(gain);
+        gain.connect(medicineReminderAudioContext.destination);
+        if (index === 4) oscillator.onended = resolve;
+        oscillator.start(start);
+        oscillator.stop(start + 0.31);
+      });
     });
   } catch (error) {
     console.warn('Medicine reminder sound could not be played.', error);
@@ -1179,11 +1262,30 @@ async function playMedicineReminderBeeps(message) {
   }
 }
 
+async function playWaterReminderSound() {
+  await playMedicineReminderBeeps('Water reminder');
+  await speakProfileMessage('It is time to drink water.');
+}
+
 function renderWaterSection() {
   const water = document.getElementById('waterProgress');
   if (!water) return;
   const todayValue = state.waterLogs.filter((entry) => entry.date === getCurrentDateKey()).reduce((sum, entry) => sum + Number(entry.value || 0), 0);
   const percentage = Math.min(100, (todayValue / 6) * 100);
+  const reminderList = state.waterReminders.length
+    ? `<div class="water-reminder-list">${state.waterReminders.map((reminder) => `
+        <div class="water-reminder-item">
+          <div>
+            <strong>${formatReminderTime(reminder.time)}</strong>
+            <small>${reminder.enabled ? 'Daily alarm on' : 'Alarm off'}</small>
+          </div>
+          <div class="water-reminder-actions">
+            <button type="button" class="secondary-button" data-water-reminder-action="toggle" data-id="${escapeHtml(reminder.id)}" aria-label="${reminder.enabled ? 'Turn off' : 'Turn on'} alarm at ${formatReminderTime(reminder.time)}">${reminder.enabled ? 'Turn Off' : 'Turn On'}</button>
+            <button type="button" class="secondary-button" data-water-reminder-action="delete" data-id="${escapeHtml(reminder.id)}" aria-label="Delete alarm at ${formatReminderTime(reminder.time)}">Delete</button>
+          </div>
+        </div>
+      `).join('')}</div>`
+    : '<p class="reminder-note">No alarms added yet.</p>';
   water.innerHTML = `
     <div class="metric-row"><span>Today's Water</span><strong>${todayValue}/6 cups</strong></div>
     <div class="progress-bar"><span class="progress-fill" style="width:${percentage}%"></span></div>
@@ -1191,6 +1293,18 @@ function renderWaterSection() {
       <button class="secondary-button" data-water="add">+ 1 Cup</button>
       <button class="secondary-button" data-water="reset">Reset</button>
     </div>
+    <div class="water-reminder-heading">
+      <h4>Daily alarms</h4>
+      <button type="button" class="secondary-button" data-water-reminder-action="add">${state.waterReminderFormOpen ? 'Cancel' : 'Add Alarm'}</button>
+    </div>
+    ${reminderList}
+    <form id="waterReminderForm" class="stack-form water-reminder-form" ${state.waterReminderFormOpen ? '' : 'hidden'}>
+      <label for="waterReminderTime">Alarm time</label>
+      <input id="waterReminderTime" type="time" value="09:00" step="60" required />
+      <div class="button-stack compact">
+        <button type="submit" class="primary-button">Save Alarm</button>
+      </div>
+    </form>
   `;
 }
 
@@ -1874,6 +1988,81 @@ function handleWaterAction(action) {
   showToast('Water log reset for today.');
 }
 
+async function saveWaterReminder(time) {
+  if (!/^\d{2}:\d{2}$/.test(time) || normalizeReminderTime(time) !== time) {
+    showToast('Choose a valid time for the water alarm.');
+    return;
+  }
+  if (state.waterReminders.some((reminder) => reminder.enabled && reminder.time === time)) {
+    showToast('An active alarm is already set for that time.');
+    return;
+  }
+
+  let permissionRequest;
+  if (typeof Notification !== 'undefined' && Notification.permission === 'default') {
+    try {
+      permissionRequest = Notification.requestPermission();
+    } catch (error) {
+      console.warn('Notification permission could not be requested.', error);
+    }
+  }
+
+  let id = `water-${Date.now()}`;
+  let duplicateIndex = 1;
+  while (state.waterReminders.some((reminder) => reminder.id === id)) {
+    id = `water-${Date.now()}-${duplicateIndex}`;
+    duplicateIndex += 1;
+  }
+  state.waterReminders.push({ id, time, enabled: true, lastAlertedDate: '' });
+  state.waterReminderFormOpen = false;
+  persistState();
+  renderWaterSection();
+  showToast('Daily water alarm saved.');
+
+  if (permissionRequest) {
+    try {
+      const permission = await permissionRequest;
+      if (permission === 'denied') {
+        showToast('Reminder saved, but browser notifications are blocked. Keep CareMate open for the in-app alert.');
+      }
+    } catch (error) {
+      console.warn('Notification permission request failed.', error);
+      showToast('Reminder saved, but browser notification permission could not be confirmed.');
+    }
+  }
+}
+
+function toggleWaterReminder(id) {
+  const reminder = state.waterReminders.find((item) => item.id === id);
+  if (!reminder) return;
+  const enable = !reminder.enabled;
+  if (enable && state.waterReminders.some((item) => item.id !== id && item.enabled && item.time === reminder.time)) {
+    showToast('An active alarm is already set for that time.');
+    return;
+  }
+  reminder.enabled = enable;
+  persistState();
+  renderWaterSection();
+  showToast(enable ? 'Water alarm turned on.' : 'Water alarm turned off.');
+}
+
+function deleteWaterReminder(id) {
+  const reminders = state.waterReminders.filter((reminder) => reminder.id !== id);
+  if (reminders.length === state.waterReminders.length) return;
+  state.waterReminders = reminders;
+  persistState();
+  renderWaterSection();
+  showToast('Water alarm deleted.');
+}
+
+function toggleWaterReminderForm() {
+  state.waterReminderFormOpen = !state.waterReminderFormOpen;
+  renderWaterSection();
+  if (state.waterReminderFormOpen) {
+    document.getElementById('waterReminderTime').focus();
+  }
+}
+
 function handleVoiceInput() {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SpeechRecognition) {
@@ -2154,6 +2343,8 @@ function initializeApp() {
   renderAll();
   checkMedicineReminderAlerts();
   window.setInterval(checkMedicineReminderAlerts, 15000);
+  checkWaterReminderAlert();
+  window.setInterval(checkWaterReminderAlert, 1000);
 
   document.body.addEventListener('click', (event) => {
     unlockMedicineReminderAudio();
@@ -2308,6 +2499,15 @@ function initializeApp() {
     const waterAction = event.target.closest('[data-water]');
     if (waterAction) {
       handleWaterAction(waterAction.dataset.water);
+      return;
+    }
+
+    const waterAlarmAction = event.target.closest('[data-water-reminder-action]');
+    if (waterAlarmAction) {
+      const { waterReminderAction, id } = waterAlarmAction.dataset;
+      if (waterReminderAction === 'add') toggleWaterReminderForm();
+      if (waterReminderAction === 'toggle') toggleWaterReminder(id);
+      if (waterReminderAction === 'delete') deleteWaterReminder(id);
       return;
     }
 
@@ -2531,6 +2731,11 @@ function initializeApp() {
     populateMedicineMonthDays();
   });
   document.getElementById('medicineFrequency')?.addEventListener('change', updateMedicineMonthDayVisibility);
+  document.getElementById('view-elderly')?.addEventListener('submit', (event) => {
+    if (!event.target.matches('#waterReminderForm')) return;
+    event.preventDefault();
+    saveWaterReminder(document.getElementById('waterReminderTime').value);
+  });
 
   document.getElementById('sosMessageBox')?.addEventListener('input', () => {
     state.lastEmergencyMessage = document.getElementById('sosMessageBox').value;
