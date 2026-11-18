@@ -1075,8 +1075,9 @@ function checkWaterReminderAlert() {
   persistState();
 
   dueReminders.forEach((reminder) => {
-    const message = `It is time to drink a glass of water. (${formatReminderTime(reminder.time)})`;
-    playWaterReminderSound();
+    const timeLabel = formatReminderTime(reminder.time);
+    const message = `It is time to drink a glass of water. (${timeLabel})`;
+    playWaterReminderSound(reminder);
     showToast(message);
 
     if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
@@ -1184,29 +1185,29 @@ function unlockMedicineReminderAudio() {
 }
 
 async function playMedicineReminderSound(reminder) {
-  const playBeeps = () => playMedicineReminderBeeps(`${reminder.name} reminder at ${formatReminderTime(reminder.time)}`);
+  const timeLabel = formatReminderTime(reminder.time);
+  const message = `Medicine reminder for ${reminder.name}. It is time to take your medicine. The scheduled time is ${timeLabel}.`;
+  await playMedicineReminderBeeps(`${reminder.name} reminder at ${timeLabel}`);
   if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
-    playBeeps();
     return;
   }
 
-  const timeLabel = formatReminderTime(reminder.time);
   let utterance;
   try {
-    utterance = await createProfileSpeechUtterance(`Medicine reminder for ${reminder.name}. It is time to take your medicine. The scheduled time is ${timeLabel}.`);
+    utterance = await createProfileSpeechUtterance(message);
   } catch (error) {
     console.warn('Medicine reminder voice could not be prepared.', error);
-    playBeeps();
     return;
   }
+
   let announcementFinished = false;
+  let fallbackTimer;
   const finishAnnouncement = () => {
     if (announcementFinished) return;
     announcementFinished = true;
-    clearTimeout(fallbackTimer);
-    playBeeps();
+    window.clearTimeout(fallbackTimer);
   };
-  const fallbackTimer = window.setTimeout(() => {
+  fallbackTimer = window.setTimeout(() => {
     console.warn('Medicine reminder announcement did not finish in time.');
     window.speechSynthesis.cancel();
     finishAnnouncement();
@@ -1262,9 +1263,10 @@ async function playMedicineReminderBeeps(message) {
   }
 }
 
-async function playWaterReminderSound() {
+async function playWaterReminderSound(reminder) {
+  const timeLabel = formatReminderTime(reminder.time);
   await playMedicineReminderBeeps('Water reminder');
-  await speakProfileMessage('It is time to drink water.');
+  await speakProfileMessage(`It is time to drink water. The scheduled time is ${timeLabel}.`);
 }
 
 function renderWaterSection() {

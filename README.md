@@ -54,8 +54,8 @@ This project demonstrates the following AI ideas:
 - Safety check-ins
 - Health and wellness dashboard
 - Home wellness controls for daily water, sleep, and medicine status; medicine status starts at NA and can be set to Needs attention or On track; select Edit Wellness to change values and save them together
-- Multiple medicine reminders with selected days of the week or monthly schedules, and a time field that supports choosing or manually entering any minute; reminders announce the medicine and scheduled time, then beep five times while CareMate is open; monthly reminders use the month's last day when the selected date does not exist
-- Water tracker with multiple daily alarms at user-selected times; each alarm beeps, then announces that it is time to drink water. Keep CareMate open and the device awake for alerts, and allow browser notifications for system alerts
+- Multiple medicine reminders with selected days of the week or monthly schedules, and a time field that supports choosing or manually entering any minute; reminders beep five times, then announce the medicine and scheduled time while CareMate is open; monthly reminders use the month's last day when the selected date does not exist
+- Water tracker with multiple daily alarms at user-selected times; each alarm beeps, then announces it is time to drink water and gives the scheduled time. Keep CareMate open and the device awake for alerts, and allow browser notifications for system alerts
 - AI assistant with rule-based recommendations
 - Symptom guidance without diagnosis
 - Voice assistance and medicine/water reminders wait for browser voices to load, then select a voice matching Profile gender; if none is available, the browser default voice uses an adjusted pitch
